@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>MEMORA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="on-landing">
+
+<div id="server-banner" style="display:none;background:var(--danger);color:#fff;text-align:center;padding:10px 16px;font-size:0.88rem;position:sticky;top:0;z-index:20;">
+  Can't reach the MEMORA server at <code id="server-banner-url"></code> — start it with <code>python api_server.py</code>, then reload this page.
+</div>
+
+<!-- ============ ROLE SELECT / LANDING ============ -->
+<section id="screen-role" class="screen active">
+  <svg width="0" height="0" style="position:absolute;">
+    <defs>
+      <linearGradient id="waveGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#FF3D81"/>
+        <stop offset="50%" stop-color="#9B5CFF"/>
+        <stop offset="100%" stop-color="#4FD6FF"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <nav class="landing-nav">
+    <div class="landing-logo">
+      <span class="logo-mark" style="color:var(--pink-soft);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
+      </span>
+      <span class="logo-name">ME<span class="grad-m">MORA</span></span>
+    </div>
+    <div class="landing-links">
+      <a href="#top" data-spy="top" class="active">Home</a>
+      <a href="#features" data-spy="features">Features</a>
+      <a href="#role-pick" data-spy="role-pick">How It Works</a>
+      <a href="#strip" data-spy="strip">Safety</a>
+      <a href="#role-pick" data-spy="role-pick">Contact</a>
+    </div>
+    <button class="btn btn-primary btn-sm" onclick="document.getElementById('role-pick').scrollIntoView({behavior:'smooth'})">Get Started &rarr;</button>
+  </nav>
+
+  <header class="hero-full" id="top">
+    <div class="hero-full-bg"></div>
+    <div class="hero-full-content">
+      <div class="hero-eyebrow reveal in">More Than Just an App</div>
+      <div class="hero-wordmark reveal in">MEMORA</div>
+      <h2 class="hero-sub reveal in">A Smarter Companion<br>for a Safer Tomorrow</h2>
+      <p class="hero-desc reveal in">MEMORA helps people living with memory loss reconnect with their past, and supports caregivers with intelligent, compassionate, always-on care.</p>
+      <div class="hero-actions reveal in">
+        <button class="btn btn-primary" onclick="document.getElementById('role-pick').scrollIntoView({behavior:'smooth'})">Get Started &rarr;</button>
+        <button class="btn-outline-round" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">Learn More</button>
+      </div>
+      <button class="scroll-cue" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">
+        <span class="scroll-mouse"></span> Scroll to explore
+      </button>
+    </div>
+  </header>
+
+  <svg class="wave-divider" viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,30 C 300,60 900,0 1200,30"/></svg>
+
+  <section class="features-section" id="features">
+    <div class="features-glow features-glow-a"></div>
+    <div class="features-glow features-glow-b"></div>
+    <div class="features-layout">
+      <div class="reveal">
+        <div class="features-eyebrow">Features</div>
+        <h2 class="features-heading">Built for <span class="grad">Better Days</span></h2>
+        <p>MEMORA combines advanced AI, vision, and location technologies to ensure your loved ones are safe, connected, and supported — wherever they are.</p>
+        <a href="#role-pick" class="features-explore" onclick="document.getElementById('role-pick').scrollIntoView({behavior:'smooth'});return false;">Explore All Features &rarr;</a>
+      </div>
+
+      <div class="feature-grid reveal">
+        <div class="feature-card">
+          <div class="feature-icon ic-pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg></div>
+          <h3>Personal Memory Assistant</h3>
+          <p>Answers questions using AI, saved personal details and past memories.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon ic-cyan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <h3>Location &amp; Safe Zones</h3>
+          <p>Tracks location and alerts caregivers if they wander outside safe zones.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon ic-violet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="6.5 6.5 17.5 17.5 12 23 12 1 17.5 6.5 6.5 17.5"/></svg></div>
+          <h3>Bluetooth Device Support</h3>
+          <p>Connects with wearable devices for extra safety and monitoring.</p>
+        </div>
+        <div class="feature-card wide">
+          <div class="feature-icon ic-pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <div><h3>App Lock</h3><p>Keeps the app secure and prevents unauthorized access.</p></div>
+        </div>
+        <div class="feature-card wide">
+          <div class="feature-icon ic-cyan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div><h3>Caregiver Dashboard</h3><p>Lets family members stay updated and get real-time alerts.</p></div>
+        </div>
+      </div>
+
+      <div class="phone-wrap reveal">
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="phone-brand">MEMORA</div>
+            <div class="phone-profile">
+              <div class="phone-avatar"></div>
+              <div>
+                <div class="phone-name">Grandma</div>
+                <div class="phone-status">● Safe &amp; Happy</div>
+              </div>
+            </div>
+            <div class="phone-lastseen">Last seen 2:34 PM</div>
+            <div class="phone-map"><div class="ring"></div><div class="pin"></div></div>
+            <div class="phone-cta">View Profile &rarr;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <svg class="wave-divider" viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,30 C 300,0 900,60 1200,30"/></svg>
+
+  <section class="strip-section" id="strip">
+    <div class="strip-grid">
+      <div class="strip-item reveal">
+        <div class="strip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><rect x="9" y="9" width="6" height="6"/></svg></div>
+        <div><h3>Memory Support &amp; AI Assistant</h3><p>Personalized support to help with daily memories and reminiscence.</p></div>
+      </div>
+      <div class="strip-item reveal">
+        <div class="strip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div><h3>Location &amp; Safe Zones</h3><p>Real-time tracking and safe-zone alerts to keep your loved ones safe.</p></div>
+      </div>
+      <div class="strip-item reveal">
+        <div class="strip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div><h3>Caregiver Dashboard &amp; Alerts</h3><p>Stay informed with instant notifications and easy care management.</p></div>
+      </div>
+      <div class="strip-item reveal">
+        <div class="strip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <div><h3>Privacy &amp; Security</h3><p>Your data and loved one's information are always protected.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="role-pick-section" id="role-pick">
+    <h2>Who's opening MEMORA?</h2>
+    <p class="role-pick-sub">Choose how you'd like to continue.</p>
+    <div class="role-grid">
+      <div class="role-card" onclick="goPatientAuth()">
+        <!-- <div class="role-icon">🧑</div> -->
+        <h3>Patient</h3>
+        <p style="margin:0;">Sign up or log in with your national ID.</p>
+      </div>
+      <div class="role-card" onclick="goCaregiverAuth()">
+        <!-- <div class="role-icon">🛡️</div> -->
+        <h3>Caregiver</h3>
+        <p style="margin:0;">Manage every patient on this device.</p>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- ============ PATIENT AUTH ============ -->
+<section id="screen-patient-auth" class="screen">
+  <div class="center-wrap">
+    <div class="card">
+      <button class="back-link" onclick="goRole()">&larr; Back</button>
+      <div class="brand">
+        <div class="brand-mark"><span>M</span></div>
+        <div class="brand-name">MEMORA</div>
+      </div>
+      <div class="tabs">
+        <button class="tab-btn active" id="tab-btn-signup" onclick="switchAuthTab('signup')">Sign up</button>
+        <button class="tab-btn" id="tab-btn-login" onclick="switchAuthTab('login')">Login</button>
+      </div>
+
+      <form id="form-signup" onsubmit="return handleSignup(event)">
+        <label>First name</label>
+        <input type="text" id="su-first" required>
+        <label>Last name</label>
+        <input type="text" id="su-last" required>
+        <label>Date of birth</label>
+        <input type="date" id="su-dob" required onchange="updateAgePreview()">
+        <div class="hint" id="age-preview"></div>
+        <label>National ID</label>
+        <input type="text" id="su-nid" required placeholder="Used to log in later">
+        <div class="error-msg" id="signup-error"></div>
+        <button type="submit" class="btn btn-primary btn-block" style="margin-top:18px;">Create account</button>
+      </form>
+
+      <form id="form-login" style="display:none;" onsubmit="return handleLogin(event)">
+        <label>National ID</label>
+        <input type="text" id="li-nid" required placeholder="The ID you signed up with">
+        <div class="error-msg" id="login-error"></div>
+        <button type="submit" class="btn btn-primary btn-block" style="margin-top:18px;">Log in</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PATIENT PHOTO (sign-up, or first login if no photo yet) ============ -->
+<section id="screen-patient-photo" class="screen">
+  <div class="center-wrap">
+    <div class="card card--wide">
+      <button class="back-link" onclick="goRole()">&larr; Back</button>
+      <h2 id="photo-heading">Add your photo</h2>
+      <p>MEMORA needs a clear photo of your face so it can recognize you. Take one with the camera or upload one.</p>
+      <div class="camera-video-box">
+        <video id="photo-video" autoplay playsinline muted></video>
+        <canvas id="photo-canvas" style="display:none;"></canvas>
+        <div class="hint" id="photo-status">Starting camera…</div>
+        <div class="row" style="margin-top:12px;">
+          <button class="btn btn-primary" onclick="photoCapture()">Take photo</button>
+          <label class="btn btn-ghost" style="text-align:center;">Upload instead
+            <input type="file" accept="image/*" id="photo-upload" style="display:none;" onchange="photoHandleUpload(event)">
+          </label>
+        </div>
+        <div id="photo-preview" style="margin-top:14px;"></div>
+        <div class="error-msg" id="photo-error"></div>
+      </div>
+      <button class="btn btn-primary btn-block" style="margin-top:18px;" onclick="savePatientPhoto()">Save &amp; continue</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAMILY SETUP ============ -->
+<section id="screen-family-setup" class="screen">
+  <div class="center-wrap">
+    <div class="card card--wide">
+      <h2>Let's add the family MEMORA should recognize</h2>
+      <p>Add each family member's name, relationship, and a photo. You can always add more later.</p>
+      <ul class="family-list" id="setup-family-list"></ul>
+      <div class="empty-note" id="setup-family-empty">No family members added yet.</div>
+      <button class="btn btn-ghost" style="margin-top:16px;" onclick="openFamilyModal(currentSetupPatientId)">+ Add family member</button>
+      <button class="btn btn-primary btn-block" style="margin-top:22px;" onclick="finishFamilySetup()">Continue</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCHEDULE ============ -->
+<section id="screen-schedule" class="screen">
+  <div class="center-wrap">
+    <div class="card card--wide">
+      <h2 id="schedule-greeting">Hi!</h2>
+      <p>What's your schedule for today?</p>
+      <ul class="schedule-list" id="schedule-entries-list"></ul>
+      <div class="row">
+        <input type="time" id="sched-time">
+        <input type="text" id="sched-activity" placeholder="e.g. Doctor's appointment">
+        <button class="mic-btn" onclick="voiceFillActivity()" title="Speak the activity">&#127908;</button>
+      </div>
+      <button class="btn btn-ghost btn-block" style="margin-top:12px;" onclick="addScheduleEntry()">+ Add item</button>
+      <button class="btn btn-primary btn-block" style="margin-top:18px;" onclick="finishSchedule()">Continue to MEMORA</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PATIENT DASHBOARD ============ -->
+<section id="screen-dashboard" class="screen">
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="brand-mark" id="dash-avatar" style="width:36px;height:36px;"><span style="font-size:1rem;">M</span></div>
+      <div>
+        <div style="font-weight:700;" id="dash-name">—</div>
+        <div style="font-size:0.78rem;color:var(--text-muted);">Patient account</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <span class="zone-pill" id="zone-pill"><span class="zone-dot"></span><span id="zone-pill-text">No safe zone yet</span></span>
+      <button class="btn btn-ghost btn-sm" onclick="logout()">Log out</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="tile-grid">
+      <div class="tile" data-tab="camera" onclick="switchDashTab('camera')">
+        <div class="tile-icon">&#128247;</div>
+        <div class="tile-title">Camera</div>
+        <div class="tile-sub">Recognize or register a face</div>
+      </div>
+      <div class="tile" data-tab="map" onclick="switchDashTab('map')">
+        <div class="tile-icon">&#128205;</div>
+        <div class="tile-title">Map &amp; Safe Zone</div>
+        <div class="tile-sub">Set home and check location</div>
+      </div>
+      <div class="tile" data-tab="assistant" onclick="switchDashTab('assistant')">
+        <div class="tile-icon">&#128172;</div>
+        <div class="tile-title">AI Assistant</div>
+        <div class="tile-sub">Ask about today, family, location</div>
+      </div>
+      <div class="tile" data-tab="mydata" onclick="switchDashTab('mydata')">
+        <div class="tile-icon">&#128203;</div>
+        <div class="tile-title">My data</div>
+        <div class="tile-sub">See what's stored for you</div>
+      </div>
+    </div>
+
+    <!-- CAMERA TAB -->
+    <div class="panel dash-tab" id="tab-camera" style="display:none;">
+      <h2>Camera</h2>
+      <p>Register a family member's face, or try recognizing someone already registered.</p>
+      <div class="camera-wrap">
+        <div class="camera-video-box">
+          <video id="cam-video" autoplay playsinline muted></video>
+          <canvas id="cam-canvas" style="display:none;"></canvas>
+          <div class="hint" id="cam-status">Starting camera…</div>
+          <div class="row" style="margin-top:12px;">
+            <button class="btn btn-primary" onclick="captureFor('register')">Register this face</button>
+            <button class="btn btn-accent" onclick="captureFor('recognize')">Try recognition</button>
+          </div>
+          <div class="row" style="margin-top:10px;">
+            <label style="margin:0;flex:1;">
+              <span class="btn btn-ghost btn-block" style="display:block;text-align:center;">Upload a photo instead
+                <input type="file" accept="image/*" id="cam-upload" style="display:none;" onchange="handleUpload(event)">
+              </span>
+            </label>
+          </div>
+          <div class="result-box" id="cam-result" style="display:none;"></div>
+        </div>
+        <div class="camera-side">
+          <h3>Registered family</h3>
+          <ul class="family-list" id="dash-family-list"></ul>
+          <div class="empty-note" id="dash-family-empty">No one registered yet.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAP TAB -->
+    <div class="panel dash-tab" id="tab-map" style="display:none;">
+      <h2>Map &amp; Safe Zone</h2>
+      <p>Click the real map to set the home / safe-zone center (saved to the actual database on the server). Drag the red "You" marker to simulate your current position.</p>
+      <div class="map-shell">
+        <div id="leaflet-map"></div>
+        <div class="map-legend" aria-hidden="true">
+          <span><i class="lg lg-home"></i>Home</span>
+          <span><i class="lg lg-you"></i>You</span>
+          <span><i class="lg lg-zone"></i>Safe zone</span>
+        </div>
+      </div>
+      <div class="row" style="margin-top:16px; align-items:center;">
+        <div style="flex:2;">
+          <label style="margin:0;">Safe-zone radius: <strong id="radius-label">150</strong> m</label>
+          <input type="range" min="40" max="1000" value="150" id="radius-slider"
+                 oninput="updateRadiusPreview(this.value)" onchange="commitRadius(this.value)" style="width:100%;">
+        </div>
+        <button class="btn btn-ghost" onclick="useMyRealGpsAsYou()">Move "You" to my real GPS</button>
+      </div>
+      <div class="hint" id="geo-info"></div>
+      <div class="row" style="margin-top:12px;">
+        <button class="btn btn-primary" onclick="checkSafeZoneNow()">Check now (server)</button>
+        <button class="btn btn-ghost" onclick="checkServerOwnGps()">Check using server's own GPS</button>
+      </div>
+      <div class="status-banner" id="map-status-banner" style="display:none;"></div>
+    </div>
+
+    <!-- ASSISTANT TAB -->
+    <div class="panel dash-tab" id="tab-assistant" style="display:none;">
+      <h2>AI Assistant</h2>
+      <p>Ask about today's schedule, your family, or whether you're in the safe zone.</p>
+      <div class="chat-log" id="chat-log"></div>
+      <div class="chat-input-row">
+        <input type="text" id="chat-input" placeholder="Type a question…" onkeydown="if(event.key==='Enter'){sendChat();}">
+        <button class="mic-btn" id="chat-mic" onclick="voiceChat()" title="Speak your question">&#127908;</button>
+        <button class="btn btn-primary" onclick="sendChat()">Send</button>
+      </div>
+    </div>
+
+    <!-- MY DATA TAB -->
+    <div class="panel dash-tab" id="tab-mydata" style="display:none;">
+      <h2>My data</h2>
+      <p>Exactly what MEMORA has stored for your account — log in with a different national ID to see completely different data.</p>
+      <dl class="kv-list" id="mydata-profile"></dl>
+      <h3 style="margin-top:22px;">Family registered</h3>
+      <ul class="family-list" id="mydata-family"></ul>
+      <div class="empty-note" id="mydata-family-empty">None yet.</div>
+      <h3 style="margin-top:22px;">Schedule / facts</h3>
+      <div id="mydata-facts"></div>
+      <h3 style="margin-top:22px;">Safe zone</h3>
+      <div id="mydata-zone"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CAREGIVER AUTH ============ -->
+<section id="screen-caregiver-auth" class="screen">
+  <div class="center-wrap">
+    <div class="card">
+      <button class="back-link" onclick="goRole()">&larr; Back</button>
+      <div class="brand">
+        <div class="brand-mark"><span>M</span></div>
+        <div class="brand-name">MEMORA · Caregiver</div>
+      </div>
+      <div id="cg-login-block">
+        <p>Enter the caregiver credentials for this device.</p>
+        <label>Username</label>
+        <input type="text" id="cg-username" autocomplete="username">
+        <label>Password</label>
+        <input type="password" id="cg-password" autocomplete="current-password">
+        <div class="error-msg" id="cg-login-error"></div>
+        <button class="btn btn-primary btn-block" style="margin-top:16px;" onclick="handleCaregiverLogin()">Log in</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CAREGIVER DASHBOARD ============ -->
+<section id="screen-caregiver-dashboard" class="screen">
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="brand-mark" style="width:36px;height:36px;"><span style="font-size:1rem;">M</span></div>
+      <div>
+        <div style="font-weight:700;">Caregiver / Admin</div>
+        <div style="font-size:0.78rem;color:var(--text-muted);" id="cg-total-line">0 patients on this device</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <button class="btn btn-ghost btn-sm" onclick="logout()">Log out</button>
+    </div>
+  </div>
+  <div class="content">
+    <div class="panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+        <h2 style="margin:0;">All patients</h2>
+        <button class="btn btn-accent" onclick="openPatientAdminSignup()">+ Register new patient</button>
+      </div>
+      <table class="admin-table" style="margin-top:16px;">
+        <thead><tr><th>Name</th><th>National ID</th><th>Family</th><th>Actions</th></tr></thead>
+        <tbody id="cg-patient-table"></tbody>
+      </table>
+      <div class="empty-note" id="cg-patient-empty">No patients registered yet.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MODALS ============ -->
+<div class="modal-overlay" id="modal-family">
+  <div class="modal-box">
+    <h3>Add family member</h3>
+    <label>Name</label>
+    <input type="text" id="fam-name">
+    <label>Relationship</label>
+    <input type="text" id="fam-rel" placeholder="e.g. daughter, son, caregiver">
+    <label>Age</label>
+    <input type="number" id="fam-age" min="0" max="130" placeholder="e.g. 34">
+    <label>Description <span style="font-weight:400;opacity:.7;">(optional — anything worth remembering about them)</span></label>
+    <textarea id="fam-notes" rows="2" placeholder="e.g. works as a teacher, lives nearby, loves gardening"></textarea>
+    <label>Photo</label>
+    <div class="row" style="margin-top:4px;">
+      <button class="btn btn-ghost" onclick="famCamOpen()">Use camera</button>
+      <label class="btn btn-ghost" style="text-align:center;">Upload
+        <input type="file" accept="image/*" id="fam-upload" style="display:none;" onchange="famHandleUpload(event)">
+      </label>
+    </div>
+    <video id="fam-video" autoplay playsinline muted style="display:none;margin-top:10px;"></video>
+    <button class="btn btn-primary btn-sm" id="fam-cam-capture" style="display:none;margin-top:8px;" onclick="famCamCapture()">Capture</button>
+    <canvas id="fam-canvas" style="display:none;"></canvas>
+    <div style="margin-top:12px;" id="fam-photo-preview"></div>
+    <div class="error-msg" id="fam-error"></div>
+    <div class="row" style="margin-top:18px;">
+      <button class="btn btn-ghost" onclick="closeFamilyModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveFamilyMember()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-patient-detail">
+  <div class="modal-box">
+    <h3>Patient details</h3>
+    <div id="patient-detail-body"></div>
+    <div class="row" style="margin-top:18px;">
+      <button class="btn btn-ghost" onclick="closeModal('modal-patient-detail')">Close</button>
+      <button class="btn btn-danger" id="patient-delete-btn">Delete account</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-admin-signup">
+  <div class="modal-box">
+    <h3>Register a new patient</h3>
+    <label>First name</label>
+    <input type="text" id="asu-first">
+    <label>Last name</label>
+    <input type="text" id="asu-last">
+    <label>Date of birth</label>
+    <input type="date" id="asu-dob">
+    <label>National ID</label>
+    <input type="text" id="asu-nid">
+    <div class="error-msg" id="asu-error"></div>
+    <div class="row" style="margin-top:18px;">
+      <button class="btn btn-ghost" onclick="closeModal('modal-admin-signup')">Cancel</button>
+      <button class="btn btn-primary" onclick="adminCreatePatient()">Create</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // Change this if your Flask server runs somewhere other than the default.
+  window.MEMORA_API_BASE = 'http://127.0.0.1:5000/api';
+</script>
+<script src="script.js"></script>
+</body>
+</html>
